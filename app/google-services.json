@@ -1,0 +1,55 @@
+{
+  "project_info": {
+    "project_number": "611948089397",
+    "firebase_url": "https://smartvis-bf635.firebaseio.com",
+    "project_id": "smartvis-bf635",
+    "storage_bucket": "smartvis-bf635.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:611948089397:android:58245724eaa70452",
+        "android_client_info": {
+          "package_name": "com.smartypants.smartvis"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "611948089397-ov95minkgt4qak244813tokft32v62ng.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.smartypants.smartvis",
+            "certificate_hash": "e419466dd1d8a90ddbc67e2cee0b092ebec48c3f"
+          }
+        },
+        {
+          "client_id": "611948089397-sm3bp3m6cluc7gou2fkqhm7njn1rnqah.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyB6xzYdKYB1icQO4MzRumniMP782uF1rRQ"
+        }
+      ],
+      "services": {
+        "analytics_service": {
+          "status": 1
+        },
+        "appinvite_service": {
+          "status": 2,
+          "other_platform_oauth_client": [
+            {
+              "client_id": "611948089397-sm3bp3m6cluc7gou2fkqhm7njn1rnqah.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        },
+        "ads_service": {
+          "status": 2
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

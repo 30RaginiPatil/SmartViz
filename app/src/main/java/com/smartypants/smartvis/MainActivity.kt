@@ -11,6 +11,11 @@ import com.google.firebase.auth.FirebaseAuth
 import kotlinx.android.synthetic.main.activity_main.*
 import kotlinx.android.synthetic.main.app_bar_main.*
 import android.content.Intent
+import android.support.design.widget.AppBarLayout
+import android.support.v7.widget.LinearLayoutManager
+import android.support.v7.widget.RecyclerView
+import android.view.View
+import android.widget.LinearLayout
 import android.widget.TextView
 import android.widget.Toast
 import com.google.android.gms.tasks.OnFailureListener
@@ -18,7 +23,9 @@ import com.google.android.gms.tasks.OnSuccessListener
 import com.google.firebase.storage.FirebaseStorage
 import com.google.firebase.storage.StorageReference
 import com.google.firebase.storage.UploadTask
+import kotlinx.android.synthetic.*
 import kotlinx.android.synthetic.main.content_main.*
+import kotlinx.android.synthetic.main.nav_header_main.*
 
 class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelectedListener {
 
@@ -41,9 +48,39 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
         else{
             setContentView(R.layout.activity_main)
             setSupportActionBar(toolbar)
-            val emailID : TextView? = findViewById(R.id.navigation_header_container)
-            emailID?.text = mAuth.currentUser?.email.toString()
-            text.text = mAuth.currentUser.toString()
+            val navigationView = findViewById(R.id.nav_view) as NavigationView
+            val headerView = navigationView.getHeaderView(0)
+            val navEmail = headerView.findViewById(R.id.emailID) as TextView
+            navEmail.text = mAuth.currentUser?.email.toString()
+
+            val navUser = headerView.findViewById<TextView>(R.id.navName)
+            //navName.text = mAuth.currentUser?.displayName.toString()
+
+            val app_bar_main = findViewById(R.id.app_bar_main) as AppBarLayout
+            val constraintLayout = findViewById(R.id.content_main) as AppBarLayout
+            val recyclerView = findViewById(R.id.uploads) as RecyclerView
+
+            //adding a layoutmanager
+            recyclerView.layoutManager = LinearLayoutManager(this, LinearLayout.VERTICAL, false)
+
+
+            //crating an arraylist to store users using the data class user
+            val users = ArrayList<file>()
+
+
+            users.add(file("Belal Khan"))
+            users.add(file("Belal Khan"))
+            users.add(file("Belal Khan"))
+
+            //creating our adapter
+            val adapter = CustomAdapter(users)
+
+            //now adding the adapter to recyclerview
+            recyclerView.adapter = adapter
+
+
+
+
             fab.setOnClickListener {
                 val intent = Intent()
                         .setType("*/*")
@@ -63,7 +100,6 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
 
 
     }
-
 
     override fun onBackPressed() {
         if (drawer_layout.isDrawerOpen(GravityCompat.START)) {
@@ -128,8 +164,7 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
         if (requestCode == 111 && resultCode == RESULT_OK) {
             val selectedFile = data?.data //The uri with the location of the file
             if (selectedFile != null) {
-
-                val childRef = mStorageRef.child("image.jpg")
+                val childRef = mStorageRef.child("my Uploads/image"+data.toString().split("/").last())
 
                 //uploading the image
                 val uploadTask = childRef.putFile(selectedFile)

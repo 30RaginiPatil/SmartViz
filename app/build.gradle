@@ -50,4 +50,5 @@ dependencies {
     implementation "com.android.support:support-core-utils:27.1.1"
     implementation 'com.google.firebase:firebase-auth:16.1.0'
     implementation 'org.junit.jupiter:junit-jupiter-api:5.2.0'
+    implementation 'com.android.support:recyclerview-v7:27.1.1'
 }

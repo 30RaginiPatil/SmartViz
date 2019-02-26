@@ -1,7 +1,9 @@
 package com.smartypants.smartvis
 
+import android.content.Intent
 import android.os.Bundle
 import android.support.design.widget.AppBarLayout
+import android.support.v4.content.ContextCompat.startActivity
 import android.support.v7.app.AppCompatActivity
 import android.support.v7.widget.LinearLayoutManager
 import android.support.v7.widget.RecyclerView
@@ -10,6 +12,7 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.LinearLayout
 import android.widget.TextView
+import android.widget.Toast
 
 class CustomAdapter(val userList: ArrayList<file>) : RecyclerView.Adapter<CustomAdapter.ViewHolder>() {
 
@@ -36,6 +39,17 @@ class CustomAdapter(val userList: ArrayList<file>) : RecyclerView.Adapter<Custom
             val textViewName = itemView.findViewById(R.id.fileName) as TextView
             //val textViewAddress  = itemView.findViewById(R.id.textViewAddress) as TextView
             textViewName.text = user.name
+        }
+        init {
+            itemView.setOnClickListener{
+                val fileName = itemView?.findViewById<TextView?>(R.id.fileName)
+                val intent = Intent(itemView.context,viewImage::class.java)
+                Toast.makeText(itemView.context,"kslk",Toast.LENGTH_SHORT).show()
+                val bundle = Bundle()
+                bundle.putString("name",fileName?.text.toString())
+                intent.putExtras(bundle)
+                startActivity(itemView.context,intent,bundle)
+            }
         }
     }
 }

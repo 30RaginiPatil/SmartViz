@@ -65,15 +65,20 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
 
 
             //crating an arraylist to store users using the data class user
-            val users = ArrayList<file>()
+            val files = ArrayList<file>()
 
-
-            users.add(file("Belal Khan"))
-            users.add(file("Belal Khan"))
-            users.add(file("Belal Khan"))
+            val Ref = mStorageRef.child("my Uploads/imageimage:47765 flg=0x1 }.jpeg")
+            Ref.metadata.addOnSuccessListener {
+                files.add(file(Ref.name.toString()))
+            }.addOnFailureListener {
+                // Uh-oh, an error occurred!
+            }
+            files.add(file("image1"))
+            files.add(file("image2"))
+            files.add(file("image3"))
 
             //creating our adapter
-            val adapter = CustomAdapter(users)
+            val adapter = CustomAdapter(files)
 
             //now adding the adapter to recyclerview
             recyclerView.adapter = adapter

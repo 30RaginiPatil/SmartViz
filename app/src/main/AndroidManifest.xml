@@ -33,6 +33,16 @@
             <intent-filter>
                 <action android:name="android.intent.action.ALL_APPS"></action>
             </intent-filter>
+            <meta-data android:name="android.support.PARENT_ACTIVITY" android:value=".loginActivity"></meta-data>
+
+        </activity>
+        <activity android:name=".viewImage"
+            android:theme="@style/AppTheme"
+            android:label="Register to SmartVis">
+            <intent-filter>
+                <action android:name="android.intent.action.ALL_APPS"></action>
+            </intent-filter>
+            <meta-data android:name="android.support.PARENT_ACTIVITY" android:value=".MainActivity"></meta-data>
 
         </activity>
     </application>

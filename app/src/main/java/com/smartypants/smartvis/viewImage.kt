@@ -19,7 +19,7 @@ class viewImage : AppCompatActivity()
         val image = findViewById<ImageView>(R.id.imageView)
         val fileName = intent.getStringExtra("name")
         val mStorageRef = FirebaseStorage.getInstance().reference
-        val Ref = mStorageRef.child("my Uploads/"+fileName+".jpg")
+        val Ref = mStorageRef.child(fileName)
         Glide.with(this).load(Ref).into(image)
 //        Glide.with(this).using(FirebaseImageLoader())
 //                .load(storageReference)

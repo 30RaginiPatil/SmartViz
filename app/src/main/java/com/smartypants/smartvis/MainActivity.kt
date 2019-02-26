@@ -14,23 +14,31 @@ import android.content.Intent
 import android.support.design.widget.AppBarLayout
 import android.support.v7.widget.LinearLayoutManager
 import android.support.v7.widget.RecyclerView
+import android.util.Log
 import android.view.View
 import android.widget.LinearLayout
 import android.widget.TextView
 import android.widget.Toast
 import com.google.android.gms.tasks.OnFailureListener
 import com.google.android.gms.tasks.OnSuccessListener
+import com.google.firebase.database.DataSnapshot
+import com.google.firebase.database.DatabaseError
+import com.google.firebase.database.FirebaseDatabase
+import com.google.firebase.database.ValueEventListener
 import com.google.firebase.storage.FirebaseStorage
 import com.google.firebase.storage.StorageReference
 import com.google.firebase.storage.UploadTask
 import kotlinx.android.synthetic.*
 import kotlinx.android.synthetic.main.content_main.*
 import kotlinx.android.synthetic.main.nav_header_main.*
+import kotlinx.android.synthetic.main.register.view.*
 
 class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelectedListener {
 
     private lateinit var mAuth: FirebaseAuth
     private lateinit var mStorageRef: StorageReference
+    private lateinit var mDatabaseReference: FirebaseDatabase
+    lateinit var recyclerView: RecyclerView
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -39,7 +47,7 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
         val currentUser = mAuth.currentUser
 
         mStorageRef = FirebaseStorage.getInstance().reference
-
+        mDatabaseReference = FirebaseDatabase.getInstance()
         if(currentUser==null)
         {
             val intent = Intent(this,loginActivity::class.java)
@@ -58,30 +66,50 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
 
             val app_bar_main = findViewById(R.id.app_bar_main) as AppBarLayout
             val constraintLayout = findViewById(R.id.content_main) as AppBarLayout
-            val recyclerView = findViewById(R.id.uploads) as RecyclerView
+            recyclerView = findViewById(R.id.uploads) as RecyclerView
 
             //adding a layoutmanager
             recyclerView.layoutManager = LinearLayoutManager(this, LinearLayout.VERTICAL, false)
 
 
             //crating an arraylist to store users using the data class user
-            val files = ArrayList<file>()
+            var files = ArrayList<file>()
 
-            val Ref = mStorageRef.child("my Uploads/imageimage:47765 flg=0x1 }.jpeg")
-            Ref.metadata.addOnSuccessListener {
-                files.add(file(Ref.name.toString()))
-            }.addOnFailureListener {
-                // Uh-oh, an error occurred!
-            }
-            files.add(file("image1"))
-            files.add(file("image2"))
-            files.add(file("image3"))
 
+            mDatabaseReference = FirebaseDatabase.getInstance()
+            val ref = mDatabaseReference.getReference("fileData")
+            ref.addValueEventListener(object : ValueEventListener {
+                override fun onCancelled(p0: DatabaseError) {
+                    TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
+                }
+
+                override fun onDataChange(dataSnapshot: DataSnapshot) {
+                    if (dataSnapshot.exists()) {
+                        //files.clear()
+                        for (i in dataSnapshot.children) {
+                            val value = i.getValue(file::class.java)
+                            //println(value)
+                            if (value != null) {
+                                files.add(value)
+                                Log.d("idk", value.name)
+                            }
+                        }
+                    }
+                    var adapter = CustomAdapter(files)
+                    recyclerView.adapter = adapter
+
+                }
+            })
+
+//            files.add(file("image1"))
+//            files.add(file("image2"))
+//            files.add(file("image3"))
+            files.add(file("k","dh"))
             //creating our adapter
-            val adapter = CustomAdapter(files)
+
 
             //now adding the adapter to recyclerview
-            recyclerView.adapter = adapter
+
 
 
 
@@ -176,6 +204,10 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
 
                 uploadTask.addOnSuccessListener(OnSuccessListener<UploadTask.TaskSnapshot> {
                     Toast.makeText(this, "Upload successful", Toast.LENGTH_SHORT).show()
+                    val ref = mDatabaseReference.getReference("fileData")
+                    val id =ref.push().key
+                    ref.child(id!!).child("name").setValue("my Uploads/image"+data.toString().split("/").last())
+                    ref.child(id).child("ext").setValue("jpg")
                 }).addOnFailureListener(OnFailureListener { e ->
                     Toast.makeText(this, "Upload Failed -> $e", Toast.LENGTH_SHORT).show()
                 })

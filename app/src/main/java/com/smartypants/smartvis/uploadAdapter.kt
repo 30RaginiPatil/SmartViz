@@ -13,9 +13,11 @@ import android.view.ViewGroup
 import android.widget.LinearLayout
 import android.widget.TextView
 import android.widget.Toast
+import com.chaquo.python.Python
+import com.chaquo.python.android.AndroidPlatform
 
 class CustomAdapter(val userList: ArrayList<file>) : RecyclerView.Adapter<CustomAdapter.ViewHolder>() {
-
+//    private val python = Python.getInstance()
     //this method is returning the view for each item in the list
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): CustomAdapter.ViewHolder {
         val v = LayoutInflater.from(parent.context).inflate(R.layout.list_layout, parent, false)
@@ -43,12 +45,28 @@ class CustomAdapter(val userList: ArrayList<file>) : RecyclerView.Adapter<Custom
         init {
             itemView.setOnClickListener{
                 val fileName = itemView?.findViewById<TextView?>(R.id.fileName)
-                val intent = Intent(itemView.context,viewImage::class.java)
-                Toast.makeText(itemView.context,"kslk",Toast.LENGTH_SHORT).show()
-                val bundle = Bundle()
-                bundle.putString("name",fileName?.text.toString())
-                intent.putExtras(bundle)
-                startActivity(itemView.context,intent,bundle)
+                if(fileName?.text!!.contains("jpg")||fileName?.text.contains("jpeg")||fileName?.text.contains("image"))
+                {
+                    val intent = Intent(itemView.context,viewImage::class.java)
+                    Toast.makeText(itemView.context,"kslk",Toast.LENGTH_SHORT).show()
+                    val bundle = Bundle()
+                    bundle.putString("name",fileName?.text.toString())
+                    intent.putExtras(bundle)
+                    startActivity(itemView.context,intent,bundle)
+                }
+                else if(fileName?.text!!.contains("csv"))
+                {
+                    Toast.makeText(itemView.context,"A csv file",Toast.LENGTH_SHORT).show()
+
+//                    if (! Python.isStarted()) {
+//                        Python.start(AndroidPlatform(itemView.context));
+
+//                    }
+                }
+                else
+                {
+                    Toast.makeText(itemView.context,"Some other file",Toast.LENGTH_SHORT).show()
+                }
             }
         }
     }

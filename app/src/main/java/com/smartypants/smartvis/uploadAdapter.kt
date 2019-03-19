@@ -45,28 +45,41 @@ class CustomAdapter(val userList: ArrayList<file>) : RecyclerView.Adapter<Custom
         init {
             itemView.setOnClickListener{
                 val fileName = itemView?.findViewById<TextView?>(R.id.fileName)
-                if(fileName?.text!!.contains("jpg")||fileName?.text.contains("jpeg")||fileName?.text.contains("image"))
-                {
-                    val intent = Intent(itemView.context,viewImage::class.java)
-                    Toast.makeText(itemView.context,"kslk",Toast.LENGTH_SHORT).show()
-                    val bundle = Bundle()
-                    bundle.putString("name",fileName?.text.toString())
-                    intent.putExtras(bundle)
-                    startActivity(itemView.context,intent,bundle)
-                }
-                else if(fileName?.text!!.contains("csv"))
-                {
-                    Toast.makeText(itemView.context,"A csv file",Toast.LENGTH_SHORT).show()
+//                if(fileName?.text!!.contains("jpg")||fileName?.text.contains("jpeg")||fileName?.text.contains("image"))
+//                {
+//                    val intent = Intent(itemView.context,viewImage::class.java)
+//                    Toast.makeText(itemView.context,"kslk",Toast.LENGTH_SHORT).show()
+//                    val bundle = Bundle()
+//                    bundle.putString("name",fileName?.text.toString())
+//                    intent.putExtras(bundle)
+//                    startActivity(itemView.context,intent,bundle)
+//                }
+//                else if(fileName?.text!!.contains("csv"))
+//                {
+//                    Toast.makeText(itemView.context,"A csv file",Toast.LENGTH_SHORT).show()
+//
+////                    if (! Python.isStarted()) {
+////                        Python.start(AndroidPlatform(itemView.context));
+//
+////                    }
+//
+//                    val intent = Intent(itemView.context,viewChart::class.java)
+//
+//                    startActivity(itemView.context,intent,Bundle())
+//                }
+//                else
+//                {
+//                    Toast.makeText(itemView.context,"Some other file",Toast.LENGTH_SHORT).show()
+//                    val intent = Intent(itemView.context,viewChart::class.java)
+//                    startActivity(itemView.context,intent,Bundle())
+//                }
+                val intent = Intent(itemView.context,optionsActivity::class.java)
+                Toast.makeText(itemView.context,"kslk",Toast.LENGTH_SHORT).show()
+                val bundle = Bundle()
+                bundle.putString("name",fileName?.text.toString())
+                intent.putExtras(bundle)
+                startActivity(itemView.context,intent,bundle)
 
-//                    if (! Python.isStarted()) {
-//                        Python.start(AndroidPlatform(itemView.context));
-
-//                    }
-                }
-                else
-                {
-                    Toast.makeText(itemView.context,"Some other file",Toast.LENGTH_SHORT).show()
-                }
             }
         }
     }

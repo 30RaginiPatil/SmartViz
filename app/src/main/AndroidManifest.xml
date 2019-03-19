@@ -45,6 +45,24 @@
             <meta-data android:name="android.support.PARENT_ACTIVITY" android:value=".MainActivity"></meta-data>
 
         </activity>
+        <activity android:name=".viewChart"
+            android:theme="@style/AppTheme"
+            android:label="Chart: ">
+            <intent-filter>
+                <action android:name="android.intent.action.ALL_APPS"></action>
+            </intent-filter>
+            <meta-data android:name="android.support.PARENT_ACTIVITY" android:value=".MainActivity"></meta-data>
+
+        </activity>
+        <activity android:name=".optionsActivity"
+            android:theme="@style/AppTheme"
+            android:label="Choose your option">
+            <intent-filter>
+                <action android:name="android.intent.action.ALL_APPS"></action>
+            </intent-filter>
+            <meta-data android:name="android.support.PARENT_ACTIVITY" android:value=".MainActivity"></meta-data>
+
+        </activity>
     </application>
 
 </manifest>

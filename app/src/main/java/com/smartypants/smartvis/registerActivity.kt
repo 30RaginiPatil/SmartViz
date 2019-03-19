@@ -26,7 +26,7 @@ class registerActivity : AppCompatActivity(){
     private fun register()
     {
         val emailtxt = findViewById<View>(R.id.emailId) as EditText
-        val pwtxt = findViewById<View>(R.id.password) as EditText
+        val pwtxt = findViewById<View>(R.id.bar_graph) as EditText
 
         val email = emailtxt.text.toString()
         val password = pwtxt.text.toString()

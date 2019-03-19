@@ -42,7 +42,7 @@ class loginActivity() : AppCompatActivity(){
         val vemail: EditText? = findViewById(R.id.emailId)
         val email = vemail?.text.toString()
 
-        val vpassword : EditText? = findViewById(R.id.password)
+        val vpassword : EditText? = findViewById(R.id.bar_graph)
         val password = vpassword?.text.toString()
         if (!email.isEmpty() && !password.isEmpty()) {
             this.mAuth?.signInWithEmailAndPassword(email, password)?.addOnCompleteListener ( this, OnCompleteListener<AuthResult> { task ->

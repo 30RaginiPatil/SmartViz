@@ -12,6 +12,7 @@ import kotlinx.android.synthetic.main.activity_main.*
 import kotlinx.android.synthetic.main.app_bar_main.*
 import android.content.Intent
 import android.support.design.widget.AppBarLayout
+import android.support.v4.content.ContextCompat
 import android.support.v7.widget.LinearLayoutManager
 import android.support.v7.widget.RecyclerView
 import android.util.Log
@@ -85,7 +86,7 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
 
                 override fun onDataChange(dataSnapshot: DataSnapshot) {
                     if (dataSnapshot.exists()) {
-                        //files.clear()
+                        files.clear()
                         for (i in dataSnapshot.children) {
                             val value = i.getValue(file::class.java)
                             //println(value)
@@ -104,7 +105,7 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
 //            files.add(file("image1"))
 //            files.add(file("image2"))
 //            files.add(file("image3"))
-            files.add(file("k","dh"))
+            //files.add(file("k","dh"))
             //creating our adapter
 
 
@@ -197,20 +198,27 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
         if (requestCode == 111 && resultCode == RESULT_OK) {
             val selectedFile = data?.data //The uri with the location of the file
             if (selectedFile != null) {
-                val childRef = mStorageRef.child("my Uploads/image"+data.toString().split("/").last())
+//                val childRef = mStorageRef.child("my Uploads/image"+data.toString().split("/").last())
+//
+//                //uploading the image
+//                val uploadTask = childRef.putFile(selectedFile)
+//
+//                uploadTask.addOnSuccessListener(OnSuccessListener<UploadTask.TaskSnapshot> {
+//                    Toast.makeText(this, "Upload successful", Toast.LENGTH_SHORT).show()
+//                    val ref = mDatabaseReference.getReference("fileData")
+//                    val id =ref.push().key
+//                    ref.child(id!!).child("name").setValue("my Uploads/image"+data.toString().split("/").last())
+//                    ref.child(id).child("ext").setValue("jpg")
+//                }).addOnFailureListener(OnFailureListener { e ->
+//                    Toast.makeText(this, "Upload Failed -> $e", Toast.LENGTH_SHORT).show()
+//                })
 
-                //uploading the image
-                val uploadTask = childRef.putFile(selectedFile)
-
-                uploadTask.addOnSuccessListener(OnSuccessListener<UploadTask.TaskSnapshot> {
-                    Toast.makeText(this, "Upload successful", Toast.LENGTH_SHORT).show()
-                    val ref = mDatabaseReference.getReference("fileData")
-                    val id =ref.push().key
-                    ref.child(id!!).child("name").setValue("my Uploads/image"+data.toString().split("/").last())
-                    ref.child(id).child("ext").setValue("jpg")
-                }).addOnFailureListener(OnFailureListener { e ->
-                    Toast.makeText(this, "Upload Failed -> $e", Toast.LENGTH_SHORT).show()
-                })
+                val intent = Intent(this,optionsActivity::class.java)
+                Toast.makeText(this,"Select an option",Toast.LENGTH_SHORT).show()
+                val bundle = Bundle()
+                bundle.putString("name",data.toString())
+                intent.putExtras(bundle)
+                ContextCompat.startActivity(this, intent, bundle)
             } else {
                 Toast.makeText(this, "Select an image", Toast.LENGTH_SHORT).show()
             }

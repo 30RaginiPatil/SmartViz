@@ -78,6 +78,6 @@ dependencies {
     kapt 'com.github.bumptech.glide:compiler:4.4.0'
     implementation 'com.firebaseui:firebase-ui-storage:3.2.1'
     implementation 'com.github.AnyChart:AnyChart-Android:0.0.3'
-
+    implementation 'com.opencsv:opencsv:3.9'
 
 }

@@ -2,11 +2,7 @@ package com.smartypants.smartvis
 
 import android.os.Bundle
 import android.support.v7.app.AppCompatActivity
-import com.anychart.anychart.AnyChart;
-import com.anychart.anychart.AnyChartView;
-import com.anychart.anychart.DataEntry;
-import com.anychart.anychart.Pie;
-import com.anychart.anychart.ValueDataEntry;
+import com.anychart.anychart.*
 
 import java.util.ArrayList;
 import java.util.List;
@@ -35,6 +31,12 @@ class viewChart : AppCompatActivity(){
             val createChartobj = columnChart()
             createChartobj.createColumnChart(name,anyChartView)
         }
+        else if(type.contains("tag",true))
+        {
+            val createChartobj = tagCloud()
+            createChartobj.createTagCloud(name,anyChartView)
+        }
+
 
     }
 }

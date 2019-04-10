@@ -4,9 +4,6 @@ import android.os.Bundle
 import android.support.v7.app.AppCompatActivity
 import com.anychart.anychart.*
 
-import java.util.ArrayList;
-import java.util.List;
-
 class viewChart : AppCompatActivity(){
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -21,15 +18,15 @@ class viewChart : AppCompatActivity(){
             createChartobj.createPieChart(name,anyChartView)
 
         }
-        else if(type.contains("bar"))
-        {
-            val createChartobj = pieChart()
-            createChartobj.createPieChart(name,anyChartView)
-        }
         else if(type.contains("column",true))
         {
             val createChartobj = columnChart()
             createChartobj.createColumnChart(name,anyChartView)
+        }
+        else if(type.contains("line",true))
+        {
+            val createChartobj = lineChart()
+            createChartobj.createLineChart(name,anyChartView)
         }
         else if(type.contains("tag",true))
         {

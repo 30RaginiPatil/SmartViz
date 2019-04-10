@@ -73,12 +73,17 @@ class CustomAdapter(val userList: ArrayList<file>) : RecyclerView.Adapter<Custom
 //                    val intent = Intent(itemView.context,viewChart::class.java)
 //                    startActivity(itemView.context,intent,Bundle())
 //                }
-                val intent = Intent(itemView.context,optionsActivity::class.java)
-                Toast.makeText(itemView.context,"kslk",Toast.LENGTH_SHORT).show()
-                val bundle = Bundle()
-                bundle.putString("name",fileName?.text.toString())
-                intent.putExtras(bundle)
-                startActivity(itemView.context,intent,bundle)
+                if(fileName?.text.toString().contains("csv")){
+                    val intent = Intent(itemView.context,optionsActivity::class.java)
+                    Toast.makeText(itemView.context,"kslk",Toast.LENGTH_SHORT).show()
+                    val bundle = Bundle()
+                    bundle.putString("name",fileName?.text.toString())
+                    intent.putExtras(bundle)
+                    startActivity(itemView.context,intent,bundle)
+                }
+                else{
+                    Toast.makeText(itemView.context,"Select a .CSV file",Toast.LENGTH_SHORT).show()
+                }
 
             }
         }

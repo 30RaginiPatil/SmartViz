@@ -19,13 +19,11 @@ class optionsActivity : AppCompatActivity(){
         setContentView(R.layout.options_activity)
 
         val name = intent.getStringExtra("name")
-        var options = arrayOf("Pie Chart", "Bar Graph", "Histogram", "Pert", "Column Chart","Tag Cloud")
+        var options = arrayOf("Pie Chart", "Column Chart", "Line Chart", "Tag Cloud")
         var listadapter: ArrayAdapter<String> = ArrayAdapter(this,R.layout.activity_listview,options)
 
         listview = findViewById(R.id.options_list) as ListView
         listview.adapter = listadapter
-
-
 
         listview.setOnItemClickListener(
                 AdapterView.OnItemClickListener(fun(adapter: AdapterView<*>, v: View, position: Int, arg3){

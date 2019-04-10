@@ -62,20 +62,10 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
             val navEmail = headerView.findViewById(R.id.emailID) as TextView
             navEmail.text = mAuth.currentUser?.email.toString()
 
-            val navUser = headerView.findViewById<TextView>(R.id.navName)
-            //navName.text = mAuth.currentUser?.displayName.toString()
-
-            val app_bar_main = findViewById(R.id.app_bar_main) as AppBarLayout
-            val constraintLayout = findViewById(R.id.content_main) as AppBarLayout
             recyclerView = findViewById(R.id.uploads) as RecyclerView
-
-            //adding a layoutmanager
             recyclerView.layoutManager = LinearLayoutManager(this, LinearLayout.VERTICAL, false)
 
-
-            //crating an arraylist to store users using the data class user
             var files = ArrayList<file>()
-
 
             mDatabaseReference = FirebaseDatabase.getInstance()
             val ref = mDatabaseReference.getReference("fileData")
@@ -197,7 +187,8 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
 
         if (requestCode == 111 && resultCode == RESULT_OK) {
             val selectedFile = data?.data //The uri with the location of the file
-            if (selectedFile != null) {
+            Log.d("Selected File", selectedFile.toString())
+            if (selectedFile != null && selectedFile.toString().contains(".csv")) {
 //                val childRef = mStorageRef.child("my Uploads/image"+data.toString().split("/").last())
 //
 //                //uploading the image
@@ -213,14 +204,14 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
 //                    Toast.makeText(this, "Upload Failed -> $e", Toast.LENGTH_SHORT).show()
 //                })
 
-                val intent = Intent(this,optionsActivity::class.java)
-                Toast.makeText(this,"Select an option",Toast.LENGTH_SHORT).show()
+                val intent =                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                    Intent(this,optionsActivity::class.java)
+                Toast.makeText(this,            "Select an option",Toast.LENGTH_SHORT).show()
                 val bundle = Bundle()
                 bundle.putString("name",data.toString())
                 intent.putExtras(bundle)
                 ContextCompat.startActivity(this, intent, bundle)
             } else {
-                Toast.makeText(this, "Select an image", Toast.LENGTH_SHORT).show()
+                Toast.makeText(this, "Select a CSV file", Toast.LENGTH_SHORT).show()
             }
         }
     }

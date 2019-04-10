@@ -4,14 +4,15 @@ import android.util.Log
 import com.anychart.anychart.*
 import org.apache.commons.lang3.StringUtils
 import java.util.ArrayList
+import com.anychart.anychart.AnyChart
+import com.anychart.anychart.Cartesian
 
-class pieChart()
-{
-    fun createPieChart(name: String, anyChartView : AnyChartView)
+class lineChart {
+    fun createLineChart(name: String, anyChartView : AnyChartView)
     {
-        val pie : Pie = AnyChart.pie()
+
+        val cartesian = AnyChart.line()
         val data = ArrayList<DataEntry>()
-        Log.d("name", name)
         val csv  = csvData(StringUtils.substringAfterLast(name.split(" ")[2].substring(14), ":"))//String manipulation to get exact path
 
         val headji = csv.head
@@ -27,7 +28,8 @@ class pieChart()
             }
         }
 
-        pie.data(data)
-        anyChartView.setChart(pie);
+        cartesian.data(data)
+        anyChartView.setChart(cartesian);
     }
 }
+//https://stackoverflow.com/questions/17837117/java-sending-multiple-parameters-to-method

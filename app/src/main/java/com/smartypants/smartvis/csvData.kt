@@ -11,21 +11,22 @@ class csvData(val name: String)
     val filePath : String = name
     var head : Array<String>? = null
     var data : List<Array<String>>? = null
+    var dataji: List<Array<String>>? =null
     init{
         Log.d("csvcsv", "read call")
         try{
             Log.d("csvdata", "trying to open file"+filePath)
-
-            val csvHeadReader = CSVReader(FileReader(filePath), ',', '"', 0)
+//            filepath = "/storage/emulated/0/"+filePath
+            val csvHeadReader = CSVReader(FileReader("/storage/emulated/0/"+filePath), ',', '"', 0)
             head = csvHeadReader.readNext()
-            val csvReader = CSVReader(FileReader(filePath), ',', '"', 1)
+            val csvReader = CSVReader(FileReader("/storage/emulated/0/"+filePath), ',', '"', 1)
 
             data = csvReader.readAll()
-            val dataji = data
+            dataji = data
             if(dataji!=null) {
                 Log.d("csvdata", "data not null")
 
-                for (row in dataji) {
+                for (row in dataji!!) {
                     Log.d("csvdata", Arrays.toString(row))
                 }
 //                head = dataji.get(0)

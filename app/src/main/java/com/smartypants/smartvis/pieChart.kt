@@ -11,6 +11,7 @@ class pieChart()
     {
         val pie : Pie = AnyChart.pie()
         val data = ArrayList<DataEntry>()
+
         Log.d("name", name)
         val csv  = csvData(StringUtils.substringAfterLast(name.split(" ")[2].substring(14), ":"))//String manipulation to get exact path
 
@@ -20,13 +21,18 @@ class pieChart()
             Log.d("heads", headji[1])
         }
 
-        val dataji = csv.data
+        val dataji = csv.dataji
+        val head = csv.head
+        if(head!!.size>2)
+        {
+
+        }
         if(dataji!=null){
             for(row in dataji){
                 data.add(ValueDataEntry(row[0], row[1].toDouble()))
             }
         }
-
+        Log.d("data",data.toString())
         pie.data(data)
         anyChartView.setChart(pie);
     }
